@@ -1,0 +1,32 @@
+{
+  "name": "couchdb-design-putter",
+  "version": "0.0.1",
+  "description": "Aggregates views to designs via globbing and puts them into your couchdb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koellcode/couchdb-design-putter.git"
+  },
+  "keywords": [
+    "couchdb",
+    "design",
+    "views",
+    "map",
+    "reduce"
+  ],
+  "author": "Thomas Kölling",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/koellcode/couchdb-design-putter/issues"
+  },
+  "homepage": "https://github.com/koellcode/couchdb-design-putter#readme",
+  "dependencies": {
+    "bluebird": "^3.3.5",
+    "commander": "^2.9.0",
+    "glob": "^7.0.3",
+    "node-fetch": "^1.5.1"
+  }
+}
