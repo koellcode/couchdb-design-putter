@@ -4,7 +4,7 @@
   "description": "Aggregates views to designs via globbing and puts them into your couchdb",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/standard/bin/cmd.js && echo 'no tests :('"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,8 @@
     "commander": "^2.9.0",
     "glob": "^7.0.3",
     "node-fetch": "^1.5.1"
+  },
+  "devDependencies": {
+    "standard": "^6.0.8"
   }
 }
