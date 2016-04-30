@@ -8,6 +8,7 @@ const {generateDesignDocuments, putDesignDocuments} = require('./lib')
 program
   .version('0.0.1')
   .option('-d, --design [glob]', 'clobbing pattern (default: **/views/*.js) [glob]', '**/views/*.js')
+  .option('-b, --bucket', 'bucket url (default: http://localhost:5984/default)', 'http://localhost:5984/default')
   .parse(process.argv)
 
 // options is optional
@@ -15,7 +16,8 @@ glob(program.design, (err, listOfFilenames) => {
   if (err) return
   if (listOfFilenames.length === 0) return console.log('no views found.')
 
-  putDesignDocuments(generateDesignDocuments(listOfFilenames)).then((results) => {
+  putDesignDocuments(generateDesignDocuments(listOfFilenames), program.bucket)
+  .then((results) => {
     results.forEach((result) => console.log(result.url, result.statusText))
   })
 })
