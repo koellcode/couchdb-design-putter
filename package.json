@@ -4,7 +4,7 @@
   "description": "Aggregates views to designs via globbing and puts them into your couchdb",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/standard/bin/cmd.js && echo 'no tests :('"
+    "test": "node_modules/standard/bin/cmd.js && ./node_modules/.bin/mocha --reporter spec 'test/*.js'"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,20 @@
     "node-fetch": "^1.5.1"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
     "standard": "^6.0.8"
+  },
+  "standard": {
+    "globals": [
+      "describe",
+      "context",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "it",
+      "expect"
+    ]
   }
 }
