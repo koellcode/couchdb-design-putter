@@ -12,4 +12,8 @@ results in a design document named 'feature', containing both views (testview1, 
 
 your view file must export a map or a reduce function (or both) otherwhise it will be ignored
 
+# note
+it works only with node.js 6.x 
+
+
 [![Build Status](https://travis-ci.org/koellcode/couchdb-design-putter.svg?branch=master)](https://travis-ci.org/koellcode/couchdb-design-putter)
