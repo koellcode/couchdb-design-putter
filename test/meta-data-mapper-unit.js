@@ -13,4 +13,16 @@ describe('meta data mapper', () => {
     const file = 'test/views/sampleView.js'
     expect(metaData(file)).to.have.property('view', 'sampleView')
   })
+
+  it('should require the file and import the map function', () => {
+    const file = 'test/views/sampleView.js'
+    const expectedMapFunc = require('./views/sampleView').map
+    expect(metaData(file)).to.have.property('map', expectedMapFunc)
+  })
+
+  it('should require the file and import the reduce function', () => {
+    const file = 'test/views/sampleView.js'
+    const expectedReduceFunc = require('./views/sampleView').reduce
+    expect(metaData(file)).to.have.property('reduce', expectedReduceFunc)
+  })
 })
