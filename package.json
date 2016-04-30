@@ -1,8 +1,9 @@
 {
   "name": "couchdb-design-putter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Aggregates views to designs via globbing and puts them into your couchdb",
   "main": "index.js",
+  "bin": "./cli.js",
   "scripts": {
     "test": "node_modules/standard/bin/cmd.js && ./node_modules/.bin/mocha --reporter spec 'test/*.js'"
   },
