@@ -7,6 +7,7 @@ const {generateDesignDocuments, putDesignDocuments} = require('./lib')
 
 program
   .version('0.0.1')
+  .option('-s, --start', 'start the import')
   .option('-d, --design [glob]', 'clobbing pattern (default: **/views/*.js) [glob]', '**/views/*.js')
   .option('-b, --bucket [url]', 'bucket url (default: http://localhost:5984/default) [url]', 'http://localhost:5984/default')
   .parse(process.argv)
@@ -15,7 +16,7 @@ if (!process.argv.slice(2).length) {
   program.outputHelp()
 }
 
-if (program.design) {
+if (program.start) {
   // options is optional
   glob(program.design, (err, listOfFilenames) => {
     if (err) return
