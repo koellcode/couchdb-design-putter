@@ -1,5 +1,4 @@
 'use strict'
-
 const {expect} = require('chai')
 
 describe('map or reduce filter', () => {
