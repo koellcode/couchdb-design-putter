@@ -16,58 +16,44 @@ describe('fetch promise mapper', () => {
     expect(fetchStub.firstCall.args[0]).to.equal('myurl/mykey')
   })
 
-  it('should put the latest revision into the design doc', (done) => {
+  it('should just put the design doc if no version is online', (done) => {
     const fetchStub = sinon.stub()
-    const jsonStub = sinon.stub()
-
+    const putStub = sinon.stub()
     const mockDesignDoc = {
       mykey: {
         views: ''
       }
     }
-    fetchStub.resolves({json: jsonStub})
-    jsonStub.resolves({
-      _id: 'mykey',
-      _rev: 'myrev'
-    })
-
-    putDesignPromises(mockDesignDoc, 'myurl', fetchStub)('mykey').then(() => {
-      expect(mockDesignDoc.mykey).to.have.property('_id', 'mykey')
-      expect(mockDesignDoc.mykey).to.have.property('_rev', 'myrev')
+    fetchStub.resolves({status: 404})
+    putDesignPromises(mockDesignDoc, 'myurl', fetchStub, putStub)('mykey')
+    .then(() => {
+      expect(putStub.firstCall.args[0]).to.equal('myurl/mykey')
+      expect(putStub.firstCall.args[1]).to.equal(mockDesignDoc.mykey)
       done()
     })
   })
 
-  it('should post the final design doc', () => {
+  it('should put the latest revision into the design doc if there is any remote doc', (done) => {
     const fetchStub = sinon.stub()
+    const putStub = sinon.stub()
     const jsonStub = sinon.stub()
-
     const mockDesignDoc = {
       mykey: {
         views: ''
       }
     }
-
-    const expectedBody = {
-      views: '',
-      _id: 'mykey',
-      _rev: 'myrev'
-    }
-
-    fetchStub.resolves({json: jsonStub})
+    fetchStub.resolves({json: jsonStub, status: 200})
     jsonStub.resolves({
       _id: 'mykey',
-      _rev: 'myrev'
+      _rev: 'latestRevision'
     })
 
-    const putPromise = putDesignPromises(mockDesignDoc, 'myurl', fetchStub)('mykey')
-    expect(fetchStub.firstCall.args[0]).to.equal('myurl/mykey')
-
-    return putPromise.then((result) => {
-      expect(fetchStub.secondCall.args[0]).to.equal('myurl/mykey')
-      expect(fetchStub.secondCall.args[1]).to.deep.equal({
-        method: 'PUT', body: JSON.stringify(expectedBody)
-      })
+    putDesignPromises(mockDesignDoc, 'myurl', fetchStub, putStub)('mykey')
+    .then(() => {
+      expect(putStub.firstCall.args[0]).to.equal('myurl/mykey')
+      expect(putStub.firstCall.args[1]).to.have.property('_id', 'mykey')
+      expect(putStub.firstCall.args[1]).to.have.property('_rev', 'latestRevision')
+      done()
     })
   })
 })
