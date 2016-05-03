@@ -11,8 +11,8 @@ describe('fetch promise mapper', () => {
   })
 
   it('should fetch the latest revison of the design doc', () => {
-    const fetchStub = sinon.stub()
-    putDesignPromises({}, 'myurl', fetchStub.resolves())('mykey')
+    const fetchStub = sinon.stub().resolves({status: 404})
+    putDesignPromises({}, 'myurl', fetchStub, sinon.stub())('mykey')
     expect(fetchStub.firstCall.args[0]).to.equal('myurl/mykey')
   })
 
